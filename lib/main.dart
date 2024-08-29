@@ -63,6 +63,9 @@ class _SpeedLocationScreenState extends State<SpeedLocationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Geschwindigkeit in km/h umrechnen
+    double _speedKmh = _speed * 3.6;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Speed & Location'),
@@ -73,6 +76,10 @@ class _SpeedLocationScreenState extends State<SpeedLocationScreen> {
           children: <Widget>[
             Text(
               'Speed: ${_speed.toStringAsFixed(2)} m/s',
+              style: TextStyle(fontSize: 48),
+            ),
+            Text(
+              'Speed: ${_speedKmh.toStringAsFixed(2)} km/h',
               style: TextStyle(fontSize: 48),
             ),
             SizedBox(height: 20),
