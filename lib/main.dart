@@ -7,23 +7,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Speedometer',
+      title: 'Speedometer & Location',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SpeedScreen(),
+      home: SpeedLocationScreen(),
     );
   }
 }
 
-class SpeedScreen extends StatefulWidget {
+class SpeedLocationScreen extends StatefulWidget {
   @override
-  _SpeedScreenState createState() => _SpeedScreenState();
+  _SpeedLocationScreenState createState() => _SpeedLocationScreenState();
 }
 
-class _SpeedScreenState extends State<SpeedScreen> {
+class _SpeedLocationScreenState extends State<SpeedLocationScreen> {
   Location _location = Location();
   double _speed = 0.0;
+  double _latitude = 0.0;
+  double _longitude = 0.0;
 
   @override
   void initState() {
@@ -32,6 +34,8 @@ class _SpeedScreenState extends State<SpeedScreen> {
     _location.onLocationChanged.listen((LocationData currentLocation) {
       setState(() {
         _speed = currentLocation.speed ?? 0.0;
+        _latitude = currentLocation.latitude ?? 0.0;
+        _longitude = currentLocation.longitude ?? 0.0;
       });
     });
   }
@@ -61,12 +65,26 @@ class _SpeedScreenState extends State<SpeedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Speedometer'),
+        title: Text('Speed & Location'),
       ),
       body: Center(
-        child: Text(
-          '${_speed.toStringAsFixed(2)} m/s',
-          style: TextStyle(fontSize: 48),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Speed: ${_speed.toStringAsFixed(2)} m/s',
+              style: TextStyle(fontSize: 48),
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Latitude: $_latitude',
+              style: TextStyle(fontSize: 24),
+            ),
+            Text(
+              'Longitude: $_longitude',
+              style: TextStyle(fontSize: 24),
+            ),
+          ],
         ),
       ),
     );
