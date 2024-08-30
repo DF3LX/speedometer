@@ -75,7 +75,7 @@ class _SpeedLocationScreenState extends State<SpeedLocationScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Speed & Location'),
+        title: Text('Speedometer & Location'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -144,7 +144,7 @@ class _SpeedLocationScreenState extends State<SpeedLocationScreen> {
               ),
             ),
             SizedBox(height: 20),
-            // Latitude
+            // Latitude und Longitude in einer Card
             Card(
               elevation: 5,
               child: Padding(
@@ -156,53 +156,30 @@ class _SpeedLocationScreenState extends State<SpeedLocationScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Latitude',
+                          'Location',
                           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: 10),
                         SelectableText(
-                          '$_latitude',
+                          'Latitude: $_latitude\nLongitude: $_longitude',
                           style: TextStyle(fontSize: 24),
                         ),
                       ],
                     ),
                     IconButton(
                       icon: Icon(Icons.copy),
-                      onPressed: () => _copyToClipboard('Latitude: $_latitude'),
+                      onPressed: () => _copyToClipboard('$_latitude, $_longitude'),
                     ),
                   ],
                 ),
               ),
             ),
             SizedBox(height: 20),
-            // Longitude
-            Card(
-              elevation: 5,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Longitude',
-                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(height: 10),
-                        SelectableText(
-                          '$_longitude',
-                          style: TextStyle(fontSize: 24),
-                        ),
-                      ],
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.copy),
-                      onPressed: () => _copyToClipboard('Longitude: $_longitude'),
-                    ),
-                  ],
-                ),
+            // TextField below the last card
+            TextField(
+              decoration: InputDecoration(
+              labelText: 'Made with ❤️, under MIT-license',
+              border: OutlineInputBorder(),
               ),
             ),
           ],
