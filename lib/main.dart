@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 
@@ -61,35 +62,148 @@ class _SpeedLocationScreenState extends State<SpeedLocationScreen> {
     }
   }
 
+  void _copyToClipboard(String text) {
+    Clipboard.setData(ClipboardData(text: text));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Copied: $text')),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Geschwindigkeit in km/h umrechnen
     double _speedKmh = _speed * 3.6;
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Speed & Location'),
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Speed: ${_speed.toStringAsFixed(2)} m/s',
-              style: TextStyle(fontSize: 48),
-            ),
-            Text(
-              'Speed: ${_speedKmh.toStringAsFixed(2)} km/h',
-              style: TextStyle(fontSize: 48),
+            // Geschwindigkeit in m/s
+            Card(
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Speed (m/s)',
+                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 10),
+                        SelectableText(
+                          '${_speed.toStringAsFixed(2)} m/s',
+                          style: TextStyle(fontSize: 48, color: Colors.blue),
+                        ),
+                      ],
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.copy),
+                      onPressed: () => _copyToClipboard('${_speed.toStringAsFixed(2)} m/s'),
+                    ),
+                  ],
+                ),
+              ),
             ),
             SizedBox(height: 20),
-            Text(
-              'Latitude: $_latitude',
-              style: TextStyle(fontSize: 24),
+            // Geschwindigkeit in km/h
+            Card(
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Speed (km/h)',
+                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 10),
+                        SelectableText(
+                          '${_speedKmh.toStringAsFixed(2)} km/h',
+                          style: TextStyle(fontSize: 48, color: Colors.green),
+                        ),
+                      ],
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.copy),
+                      onPressed: () => _copyToClipboard('${_speedKmh.toStringAsFixed(2)} km/h'),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            Text(
-              'Longitude: $_longitude',
-              style: TextStyle(fontSize: 24),
+            SizedBox(height: 20),
+            // Latitude
+            Card(
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Latitude',
+                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 10),
+                        SelectableText(
+                          '$_latitude',
+                          style: TextStyle(fontSize: 24),
+                        ),
+                      ],
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.copy),
+                      onPressed: () => _copyToClipboard('Latitude: $_latitude'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            // Longitude
+            Card(
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Longitude',
+                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 10),
+                        SelectableText(
+                          '$_longitude',
+                          style: TextStyle(fontSize: 24),
+                        ),
+                      ],
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.copy),
+                      onPressed: () => _copyToClipboard('Longitude: $_longitude'),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),

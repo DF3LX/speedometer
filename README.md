@@ -1,2 +1,4 @@
 # speedometer
-A simple flutter based app to display your current speed
+A simple flutter based app to display your current speed an position.
+
+No telemetry. No ads. just your position and and speed.
