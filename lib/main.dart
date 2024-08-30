@@ -144,7 +144,7 @@ class _SpeedLocationScreenState extends State<SpeedLocationScreen> {
               ),
             ),
             SizedBox(height: 20),
-            // Latitude und Longitude in einer Card
+            // Latitude und Longitude combined to help with copy Coordinates
             Card(
               elevation: 5,
               child: Padding(
@@ -175,7 +175,7 @@ class _SpeedLocationScreenState extends State<SpeedLocationScreen> {
               ),
             ),
             SizedBox(height: 20),
-            // TextField below the last card
+            // TextField below the last card as footer with additional information
             TextField(
               decoration: InputDecoration(
               labelText: 'Made with ❤️, under MIT-license',
